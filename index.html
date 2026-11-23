@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d19">
+  <title>ProfessorFilou Newsletter</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080d19;
+      --panel: rgba(20,30,50,.72);
+      --line: rgba(180,205,255,.14);
+      --muted: #9baac2;
+      --text: #f4f7ff;
+      --blue: #8bb8ff;
+      --cyan: #80e3e0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at 15% 0%,#1a3152 0,transparent 38%),
+                  radial-gradient(ellipse at 90% 20%,#18294a 0,transparent 34%),
+                  var(--bg);
+      color: var(--text);
+      font: 15px/1.55 Inter,system-ui,sans-serif;
+      min-height: 100vh;
+    }
+    header {
+      max-width: 1120px;
+      margin: auto;
+      padding: 26px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-weight: 750; font-size: 18px; }
+    .brand span { color: var(--blue); }
+    nav { display: flex; gap: 10px; }
+    button {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 15px;
+      background: #ffffff0f;
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+    }
+    button.primary {
+      background: linear-gradient(135deg,#8bb8ff,#77d9db);
+      color: #08111f;
+      border: 0;
+      font-weight: 700;
+    }
+    main {
+      max-width: 1120px;
+      margin: 34px auto 80px;
+      padding: 0 24px;
+    }
+    .hero { padding: 56px 0 34px; max-width: 760px; }
+    .eyebrow {
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    h1 {
+      font-size: clamp(42px,7vw,72px);
+      line-height: 1.03;
+      letter-spacing: -3px;
+      margin: 16px 0;
+    }
+    h1 em { font-style: normal; color: var(--blue); }
+    .lead { font-size: 18px; color: var(--muted); max-width: 640px; }
+    .layout {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 25px;
+      box-shadow: 0 20px 70px #0005;
+      backdrop-filter: blur(18px);
+    }
+    h2 { font-size: 20px; margin: 0 0 8px; }
+    .sub { color: var(--muted); margin: 0 0 22px; }
+    label { display: block; font-weight: 600; margin: 15px 0 7px; }
+    input,select {
+      width: 100%;
+      padding: 12px 13px;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: #0b1425;
+      color: var(--text);
+      font: inherit;
+    }
+    .topics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .topic {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px;
+      background: #ffffff08;
+    }
+    .topic input { width: auto; accent-color: #8bb8ff; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    .status { min-height: 24px; color: var(--cyan); margin-top: 12px; }
+    .feature {
+      display: flex;
+      gap: 13px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .feature:last-child { border: 0; }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--cyan);
+      margin-top: 8px;
+      flex: none;
+    }
+    .muted { color: var(--muted); font-size: 13px; }
+    .hidden { display: none !important; }
+    footer {
+      max-width: 1120px;
+      margin: auto;
+      padding: 20px 24px 45px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    @media(max-width:760px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero { padding-top: 30px; }
+      header { padding: 20px; }
+      main { margin-top: 10px; }
+      h1 { letter-spacing: -2px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">ProfessorFilou<span>.</span> Newsletter</div>
+  <nav>
+    <button id="loginNav">Anmelden</button>
+    <button class="primary" id="logoutBtn" hidden>Abmelden</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Dein Wissen. Dein Rhythmus.</div>
+    <h1>Wichtige Updates.<br><em>Direkt in dein Postfach.</em></h1>
+    <p class="lead">
+      Stelle deinen Newsletter selbst zusammen:
+      Wähle deine Themen und wie oft du Updates erhalten möchtest.
+      Deine Einstellungen kannst du später jederzeit ändern.
+    </p>
+  </section>
+
+  <section class="layout">
+    <div class="card">
+      <h2>Deinen Newsletter konfigurieren</h2>
+      <p class="sub">Melde dich an oder erstelle ein Konto.</p>
+
+      <div id="authPanel">
+        <label for="email">E-Mail-Adresse</label>
+        <input id="email" type="email" autocomplete="email"
+               placeholder="name@beispiel.de">
+
+        <label for="password">Passwort</label>
+        <input id="password" type="password" autocomplete="current-password"
+               placeholder="Mindestens 6 Zeichen">
+
+        <div class="actions">
+          <button class="primary" id="registerBtn">Konto erstellen</button>
+          <button id="loginBtn">Anmelden</button>
+        </div>
+
+        <p class="muted">
+          Nach der Registrierung erhältst du eine E-Mail zur Bestätigung.
+        </p>
+      </div>
+
+      <div id="settingsPanel" class="hidden">
+        <p class="muted" id="signedInAs"></p>
+
+        <label>Welche Themen interessieren dich?</label>
+        <div class="topics">
+          <label class="topic"><input type="checkbox" value="Nachrichten"> Nachrichten</label>
+          <label class="topic"><input type="checkbox" value="KI & Technologie"> KI & Technologie</label>
+          <label class="topic"><input type="checkbox" value="Gaming"> Gaming</label>
+          <label class="topic"><input type="checkbox" value="Minecraft"> Minecraft</label>
+          <label class="topic"><input type="checkbox" value="Wissenschaft"> Wissenschaft</label>
+          <label class="topic"><input type="checkbox" value="Wetter"> Wetter</label>
+        </div>
+
+        <label for="frequency">Wie oft möchtest du E-Mails erhalten?</label>
+        <select id="frequency">
+          <option value="daily">Täglich</option>
+          <option value="weekly" selected>Wöchentlich</option>
+          <option value="monthly">Monatlich</option>
+        </select>
+
+        <label for="weekday">Bevorzugter Wochentag</label>
+        <select id="weekday">
+          <option value="1">Montag</option>
+          <option value="2">Dienstag</option>
+          <option value="3">Mittwoch</option>
+          <option value="4">Donnerstag</option>
+          <option value="5">Freitag</option>
+          <option value="6">Samstag</option>
+          <option value="0">Sonntag</option>
+        </select>
+
+        <div class="actions">
+          <button class="primary" id="saveBtn">Einstellungen speichern</button>
+        </div>
+        <div class="status" id="saveStatus"></div>
+      </div>
+
+      <div class="status" id="authStatus"></div>
+    </div>
+
+    <aside class="card">
+      <h2>Ein Newsletter, der zu dir passt</h2>
+      <p class="sub">Du entscheidest, was in deinem Postfach landet.</p>
+
+      <div class="feature">
+        <span class="dot"></span>
+        <div><b>Deine Themen</b>
+          <div class="muted">Nur interessante Kategorien auswählen.</div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <span class="dot"></span>
+        <div><b>Dein Rhythmus</b>
+          <div class="muted">Täglich, wöchentlich oder monatlich.</div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <span class="dot"></span>
+        <div><b>Du hast die Kontrolle</b>
+          <div class="muted">Einstellungen später ändern.</div>
+        </div>
+      </div>
+
+      <p class="muted" style="margin-top:22px">
+        Der automatische E-Mail-Versand wird später mit deinem Raspberry Pi verbunden.
+      </p>
+    </aside>
+  </section>
+</main>
+
+<footer>
+  © ProfessorFilou · Newsletter
+</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendEmailVerification,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCtnYfuxPDLubfwAU0r0ORPHJok-2Q9NgM",
+    authDomain: "finns-newsletter.firebaseapp.com",
+    databaseURL: "https://finns-newsletter-default-rtdb.firebaseio.com",
+    projectId: "finns-newsletter",
+    storageBucket: "finns-newsletter.firebasestorage.app",
+    messagingSenderId: "582715799318",
+    appId: "1:582715799318:web:c8d81a74647c1191124237"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const $ = id => document.getElementById(id);
+  const message = (id, text) => $(id).textContent = text;
+
+  function friendlyError(e) {
+    const errors = {
+      "auth/email-already-in-use": "Diese E-Mail-Adresse hat bereits ein Konto.",
+      "auth/invalid-email": "Bitte gib eine gültige E-Mail-Adresse ein.",
+      "auth/weak-password": "Das Passwort muss mindestens 6 Zeichen haben.",
+      "auth/invalid-credential": "E-Mail-Adresse oder Passwort stimmen nicht."
+    };
+    return errors[e.code] || e.message || "Ein Fehler ist aufgetreten.";
+  }
+
+  $("registerBtn").addEventListener("click", async () => {
+    try {
+      const cred = await createUserWithEmailAndPassword(
+        auth,
+        $("email").value.trim(),
+        $("password").value
+      );
+
+      await sendEmailVerification(cred.user);
+
+      message(
+        "authStatus",
+        "Konto erstellt. Bitte bestätige deine E-Mail-Adresse."
+      );
+    } catch(e) {
+      message("authStatus", friendlyError(e));
+    }
+  });
+
+  $("loginBtn").addEventListener("click", async () => {
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        $("email").value.trim(),
+        $("password").value
+      );
+      message("authStatus", "Anmeldung erfolgreich.");
+    } catch(e) {
+      message("authStatus", friendlyError(e));
+    }
+  });
+
+  $("loginNav").addEventListener("click", () => {
+    $("email").focus();
+  });
+
+  $("logoutBtn").addEventListener("click", () => signOut(auth));
+
+  $("saveBtn").addEventListener("click", async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    if (!user.emailVerified) {
+      return message("saveStatus", "Bitte bestätige zuerst deine E-Mail-Adresse.");
+    }
+
+    const topics = [
+      ...document.querySelectorAll(".topics input:checked")
+    ].map(x => x.value);
+
+    if (!topics.length) {
+      return message("saveStatus", "Bitte wähle mindestens ein Thema aus.");
+    }
+
+    try {
+      await setDoc(
+        doc(db, "subscriptions", user.uid),
+        {
+          email: user.email,
+          topics,
+          frequency: $("frequency").value,
+          weekday: Number($("weekday").value),
+          active: true,
+          updatedAt: serverTimestamp()
+        },
+        { merge: true }
+      );
+
+      message("saveStatus", "Deine Einstellungen wurden gespeichert.");
+    } catch(e) {
+      message("saveStatus", "Speichern fehlgeschlagen: " + friendlyError(e));
+    }
+  });
+
+  onAuthStateChanged(auth, async user => {
+    $("authPanel").classList.toggle("hidden", !!user);
+    $("settingsPanel").classList.toggle("hidden", !user);
+    $("logoutBtn").hidden = !user;
+    $("loginNav").hidden = !!user;
+
+    if (!user) return;
+
+    $("signedInAs").textContent =
+      "Angemeldet als " + user.email +
+      (user.emailVerified ? " · bestätigt" : " · E-Mail noch nicht bestätigt");
+
+    try {
+      const snap = await getDoc(doc(db, "subscriptions", user.uid));
+
+      if (snap.exists()) {
+        const data = snap.data();
+
+        document.querySelectorAll(".topics input").forEach(x => {
+          x.checked = (data.topics || []).includes(x.value);
+        });
+
+        $("frequency").value = data.frequency || "weekly";
+        $("weekday").value = String(data.weekday ?? 1);
+      }
+    } catch(e) {
+      message("saveStatus", "Einstellungen konnten nicht geladen werden.");
+    }
+  });
+</script>
+
+</body>
+</html>
